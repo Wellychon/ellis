@@ -17,7 +17,7 @@ export const PONTOS_TERRA = (landDots as [number, number][]).map(([lon, lat]) =>
 
 /** Mapa-múndi minimalista: um ponto por célula de terra. Estático. */
 export const Mapa: React.FC<{ cor?: string; opacidade?: number }> = ({
-  cor = "#3D3D4C",
+  cor = "#3A3A3A",
   opacidade = 1,
 }) => {
   const geometria = useMemo(() => {

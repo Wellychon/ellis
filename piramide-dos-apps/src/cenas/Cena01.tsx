@@ -6,7 +6,7 @@ import { Anel, CAM_MAPA, Mapa, geo } from "../lib/Mapa";
 import { Luzes, Piramide, type TipoPiramide } from "../lib/Piramides";
 import { clamp, prog } from "../lib/anim";
 import type { PropsCena } from "../lib/cena";
-import { COR, fontFamily } from "../lib/tema";
+import { COR, MONO, fontFamily } from "../lib/tema";
 
 export const LOCAIS: { nome: string; palavra: string; tipo: TipoPiramide; pos: [number, number, number] }[] = [
   { nome: "EGITO", palavra: "Egito", tipo: "lisa", pos: geo(31, 28) },
@@ -49,13 +49,13 @@ export const Cena01: React.FC<PropsCena> = ({ cena, cue }) => {
           const flash = interpolate(f, [0, 4, 22], [0, 0.9, 0], clamp);
           return (
             <group key={l.nome}>
-              <Anel pos={l.pos} p={f / 26} cor={COR.dourado} raio={1.3} />
-              <Anel pos={l.pos} p={(frame - fMesma - i * 2) / 30} cor={COR.dourado} raio={1.1} />
+              <Anel pos={l.pos} p={f / 26} cor={COR.acid} raio={1.3} />
+              <Anel pos={l.pos} p={(frame - fMesma - i * 2) / 30} cor={COR.acid} raio={1.1} />
               {f >= 0 ? (
                 <>
                   <mesh position={[l.pos[0], 0.012, l.pos[2]]} rotation={[-Math.PI / 2, 0, 0]}>
                     <circleGeometry args={[0.07, 20]} />
-                    <meshBasicMaterial color={COR.dourado} />
+                    <meshBasicMaterial color={COR.acid} />
                   </mesh>
                   <group position={l.pos} scale={[ESCALA * s, ESCALA * s, ESCALA * s]}>
                     <Piramide tipo={l.tipo} brilho={flash + pulso} />
@@ -81,9 +81,9 @@ export const Cena01: React.FC<PropsCena> = ({ cena, cue }) => {
               width: "100%",
               textAlign: "center",
               fontFamily,
-              fontWeight: 900,
-              fontSize: 150,
-              letterSpacing: -4,
+              fontWeight: 700,
+              fontSize: 168,
+              letterSpacing: "-0.04em",
               color: COR.texto,
               opacity: e,
               transform: `translateY(${(1 - e) * 30}px)`,
@@ -108,10 +108,8 @@ export const Cena01: React.FC<PropsCena> = ({ cena, cue }) => {
               top: p.y,
               width: 300,
               textAlign: "center",
-              fontFamily,
-              fontWeight: 700,
-              fontSize: 24,
-              letterSpacing: 5,
+              ...MONO,
+              fontSize: 22,
               color: COR.textoSuave,
               opacity: interpolate(f, [6, 16], [0, 1], clamp),
             }}

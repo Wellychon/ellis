@@ -75,7 +75,7 @@ export const Cena02: React.FC<PropsCena> = ({ cena, cue }) => {
         pos: [x - 0.6, y, espalha * prog(tq, T_QUEBRA, T_QUEBRA + 20)],
         rot: [0, 0, rot],
         escala: B * 0.96 * entra,
-        cor: i % 2 ? "#8C8377" : "#9A9082",
+        cor: i % 2 ? "#848484" : "#919191",
       });
     }
   }
@@ -101,7 +101,7 @@ export const Cena02: React.FC<PropsCena> = ({ cena, cue }) => {
 
   const tb = frame - fCorte;
   const janela = Math.max(20, fBase - 8 - fCorte);
-  const brilhoBase = interpolate(frame, [fBase - 2, fBase + 6, fPonta - 2, fPonta + 8], [0, 1, 1, 0.15], clamp);
+  const brilhoBase = interpolate(frame, [fBase - 2, fBase + 6, fPonta - 2, fPonta + 8], [0, 1, 1, 0], clamp);
   const brilhoPonta = interpolate(frame, [fPonta - 2, fPonta + 6], [0, 1], clamp);
   const piramide: Inst[] =
     tb < 0
@@ -110,9 +110,9 @@ export const Cena02: React.FC<PropsCena> = ({ cena, cue }) => {
           const inicio = (b.camada / CAMADAS) * janela * 0.55 + b.u * janela * 0.15;
           const p = prog(tb, inicio, inicio + janela * 0.4);
           const arco = Math.sin(Math.PI * p) * 1.4;
-          let cor = b.camada % 2 ? "#8C8377" : "#978D80";
-          if (b.camada === 0) cor = misturar(cor, COR.douradoClaro, brilhoBase * 0.85);
-          if (b.camada === CAMADAS - 1) cor = misturar(cor, COR.dourado, brilhoPonta);
+          let cor = b.camada % 2 ? "#848484" : "#8F8F8F";
+          if (b.camada === 0) cor = misturar(cor, COR.acid, brilhoBase * 0.85);
+          if (b.camada === CAMADAS - 1) cor = misturar(cor, COR.acid, brilhoPonta);
           return {
             pos: [lerp(b.ini[0], b.alvo[0], p), lerp(b.ini[1], b.alvo[1], p) + arco, lerp(b.ini[2], b.alvo[2], p)],
             rot: [0, b.rot * (1 - p), b.rot * 0.4 * (1 - p)],
@@ -152,7 +152,7 @@ export const Cena02: React.FC<PropsCena> = ({ cena, cue }) => {
         <Luzes />
         <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, 0]}>
           <circleGeometry args={[14, 48]} />
-          <meshStandardMaterial color="#15151B" roughness={1} />
+          <meshStandardMaterial color="#141414" roughness={1} />
         </mesh>
         <Instancias itens={frame < fCorte ? torre : piramide} max={40}>
           <boxGeometry args={[1, 1, 1]} />

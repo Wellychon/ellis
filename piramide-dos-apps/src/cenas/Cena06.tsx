@@ -7,7 +7,7 @@ import { Legenda } from "../lib/Legenda";
 import { Luzes } from "../lib/Piramides";
 import { clamp, lerp, prog } from "../lib/anim";
 import type { PropsCena } from "../lib/cena";
-import { COR, fontFamily } from "../lib/tema";
+import { COR, SERIF, fontFamily } from "../lib/tema";
 
 const H = 0.64;
 const BASE_Y = 3 * H;
@@ -24,7 +24,7 @@ const Contorno: React.FC<{ l: number; y: number; opacidade: number }> = ({ l, y,
   const g = useMemo(() => new THREE.EdgesGeometry(new THREE.BoxGeometry(l, H, l)), [l]);
   return (
     <lineSegments geometry={g} position={[0, y, 0]}>
-      <lineBasicMaterial color={COR.dourado} transparent opacity={opacidade} />
+      <lineBasicMaterial color={COR.acid} transparent opacity={opacidade} />
     </lineSegments>
   );
 };
@@ -67,7 +67,7 @@ export const Cena06: React.FC<PropsCena> = ({ cena, cue }) => {
         {[6.3, 5.7, 5.1].map((l, i) => (
           <mesh key={i} position={[0, (i + 0.5) * H, 0]}>
             <boxGeometry args={[l, H * 0.97, l]} />
-            <meshStandardMaterial color={i % 2 ? "#8A7049" : "#7E6643"} roughness={0.95} flatShading />
+            <meshStandardMaterial color={COR.azul} roughness={0.9} flatShading />
           </mesh>
         ))}
         {DEGRAUS.map((d, i) => {
@@ -81,10 +81,10 @@ export const Cena06: React.FC<PropsCena> = ({ cena, cue }) => {
                 <mesh position={[0, d.y + (1 - s) * 4.5, 0]}>
                   <boxGeometry args={[d.l, H * 0.97, d.l]} />
                   <meshStandardMaterial
-                    color={i % 2 ? "#E0A741" : COR.dourado}
+                    color={COR.acid}
                     roughness={0.55}
                     metalness={0.25}
-                    emissive={COR.douradoClaro}
+                    emissive={COR.acid}
                     emissiveIntensity={flash}
                     flatShading
                   />
@@ -100,7 +100,7 @@ export const Cena06: React.FC<PropsCena> = ({ cena, cue }) => {
             return (
               <mesh position={[0, TOPO_Y + 0.55, 0]} rotation={[0, Math.PI / 4, 0]}>
                 <coneGeometry args={[1.25, 1.1, 4]} />
-                <meshBasicMaterial color={COR.dourado} wireframe transparent opacity={fantasma * 0.6} />
+                <meshBasicMaterial color={COR.acid} wireframe transparent opacity={fantasma * 0.6} />
               </mesh>
             );
           const s = spring({ frame: f, fps, config: { damping: 12, stiffness: 150 } });
@@ -108,10 +108,10 @@ export const Cena06: React.FC<PropsCena> = ({ cena, cue }) => {
             <mesh position={[0, TOPO_Y + 0.55 + (1 - s) * 4, 0]} rotation={[0, Math.PI / 4, 0]}>
               <coneGeometry args={[1.25, 1.1, 4]} />
               <meshStandardMaterial
-                color={COR.douradoClaro}
+                color={COR.acid}
                 roughness={0.4}
                 metalness={0.3}
-                emissive={COR.dourado}
+                emissive={COR.acid}
                 emissiveIntensity={interpolate(f, [4, 9, 40], [0, 0.9, 0.25], clamp)}
                 flatShading
               />
@@ -144,10 +144,10 @@ export const Cena06: React.FC<PropsCena> = ({ cena, cue }) => {
               alignItems: "center",
               justifyContent: "center",
               fontFamily,
-              fontWeight: 900,
+              fontWeight: 700,
               fontSize: fonte,
               letterSpacing: fonte * 0.04,
-              color: "#2B1D04",
+              color: COR.fundo,
               opacity: interpolate(f, [5, 10], [0, 0.92], clamp),
             }}
           >
@@ -164,14 +164,14 @@ export const Cena06: React.FC<PropsCena> = ({ cena, cue }) => {
           width: "100%",
           textAlign: "center",
           fontFamily,
-          fontWeight: 900,
+          fontWeight: 700,
           fontSize: 84,
-          letterSpacing: -2,
+          letterSpacing: "-0.03em",
           color: COR.texto,
           opacity: interpolate(frame, [2, 12, cue("Distribuição") - 6, cue("Distribuição") + 4], [0, 1, 1, 0], clamp),
         }}
       >
-        O que fica <span style={{ color: COR.dourado }}>na ponta?</span>
+        O que fica <span style={{ ...SERIF, color: COR.acid, fontSize: 100 }}>na ponta?</span>
       </div>
 
       {/* escurece: fica só a frase */}
@@ -200,7 +200,7 @@ export const Cena06: React.FC<PropsCena> = ({ cena, cue }) => {
             ))}
           </div>
           {linhasGrandes.map((linha, i) => (
-            <div key={i} style={{ fontWeight: 900, fontSize: 128, lineHeight: 1.04, letterSpacing: -5 }}>
+            <div key={i} style={{ fontWeight: 700, fontSize: 132, lineHeight: 1.0, letterSpacing: "-0.04em" }}>
               {linha.map((w) => {
                 const f = frame - cue(w.cue[0], w.cue[1]);
                 const s = spring({ frame: f, fps, config: { damping: 18, stiffness: 200 } });
@@ -210,7 +210,8 @@ export const Cena06: React.FC<PropsCena> = ({ cena, cue }) => {
                     style={{
                       display: "inline-block",
                       marginRight: 30,
-                      color: w.ouro ? COR.dourado : COR.texto,
+                      color: w.ouro ? COR.acid : COR.texto,
+                      ...(w.ouro ? { ...SERIF, fontSize: 150 } : {}),
                       opacity: interpolate(f, [0, 3], [0, 1], clamp),
                       transform: `translateY(${(1 - s) * 34}px)`,
                     }}

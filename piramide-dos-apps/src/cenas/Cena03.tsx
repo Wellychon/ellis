@@ -1,9 +1,9 @@
 import { AbsoluteFill, interpolate, spring, useCurrentFrame, useVideoConfig } from "remotion";
-import { AZUL_ESCURO, Pizza } from "../lib/IconeApp";
+import { Pizza } from "../lib/IconeApp";
 import { Legenda } from "../lib/Legenda";
 import { clamp, lerp, prog } from "../lib/anim";
 import type { PropsCena } from "../lib/cena";
-import { COR, fontFamily } from "../lib/tema";
+import { COR, MONO, fontFamily } from "../lib/tema";
 
 const PALAVRAS = [
   { texto: "BARATO.", cue: "barato" },
@@ -41,7 +41,7 @@ export const Cena03: React.FC<PropsCena> = ({ cena, cue }) => {
           width: 1040,
           height: 1040,
           borderRadius: "50%",
-          background: `radial-gradient(circle, rgba(95,111,255,${0.3 * m}) 0%, rgba(232,176,75,${0.1 * (1 - m)}) 30%, transparent 62%)`,
+          background: `radial-gradient(circle, rgba(0,0,255,${0.55 * m}) 0%, rgba(0,0,255,${0.12 * m}) 34%, transparent 62%)`,
         }}
       />
       <div
@@ -54,15 +54,15 @@ export const Cena03: React.FC<PropsCena> = ({ cena, cue }) => {
           transform: `scale(${escala}) rotate(${giro}deg)`,
           borderRadius: `${raio}%`,
           overflow: "hidden",
-          boxShadow: `0 40px 90px rgba(0,0,0,0.6), 0 0 ${90 * m}px rgba(95,111,255,${0.5 * m})`,
+          boxShadow: `0 40px 90px rgba(0,0,0,0.6), 0 0 ${110 * m}px rgba(0,0,255,${0.7 * m})`,
         }}
       >
         {/* pedra */}
         <svg viewBox="0 0 100 100" width={tamanho} height={tamanho} style={{ position: "absolute" }}>
           <defs>
             <linearGradient id="gPedra" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0" stopColor="#B0A696" />
-              <stop offset="1" stopColor="#6B645B" />
+              <stop offset="0" stopColor="#B4B3AF" />
+              <stop offset="1" stopColor="#5C5C5C" />
             </linearGradient>
           </defs>
           <rect width="100" height="100" fill="url(#gPedra)" />
@@ -70,21 +70,15 @@ export const Cena03: React.FC<PropsCena> = ({ cena, cue }) => {
           <path d="M0 100 H100 L88 88 H12 Z" fill="#000" opacity="0.22" />
           <path d="M0 0 L12 12 V88 L0 100 Z" fill="#fff" opacity="0.06" />
           <path d="M100 0 L88 12 V88 L100 100 Z" fill="#000" opacity="0.14" />
-          <path d="M30 12 L36 34 L28 50 L40 66" stroke="#4A453E" strokeWidth="1.1" fill="none" opacity="0.7" />
-          <path d="M72 88 L66 70 L74 58" stroke="#4A453E" strokeWidth="1.1" fill="none" opacity="0.6" />
-          <circle cx="62" cy="30" r="2.2" fill="#5E5850" opacity="0.5" />
-          <circle cx="24" cy="74" r="1.6" fill="#5E5850" opacity="0.5" />
-          <circle cx="78" cy="42" r="1.2" fill="#5E5850" opacity="0.5" />
+          <path d="M30 12 L36 34 L28 50 L40 66" stroke="#3A3A3A" strokeWidth="1.1" fill="none" opacity="0.7" />
+          <path d="M72 88 L66 70 L74 58" stroke="#3A3A3A" strokeWidth="1.1" fill="none" opacity="0.6" />
+          <circle cx="62" cy="30" r="2.2" fill="#4A4A4A" opacity="0.5" />
+          <circle cx="24" cy="74" r="1.6" fill="#4A4A4A" opacity="0.5" />
+          <circle cx="78" cy="42" r="1.2" fill="#4A4A4A" opacity="0.5" />
         </svg>
         {/* app */}
         <svg viewBox="0 0 100 100" width={tamanho} height={tamanho} style={{ position: "absolute", opacity: mLin }}>
-          <defs>
-            <linearGradient id="gApp3" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0" stopColor="#7C8AFF" />
-              <stop offset="1" stopColor={AZUL_ESCURO} />
-            </linearGradient>
-          </defs>
-          <rect width="100" height="100" fill="url(#gApp3)" />
+          <rect width="100" height="100" fill={COR.texto} />
           <g opacity={m} transform={`translate(50 50) scale(${lerp(0.6, 1, m)}) translate(-50 -50)`}>
             <Pizza />
           </g>
@@ -98,16 +92,14 @@ export const Cena03: React.FC<PropsCena> = ({ cena, cue }) => {
           top: 1070,
           width: "100%",
           textAlign: "center",
-          fontFamily,
-          fontWeight: 700,
-          fontSize: 44,
-          letterSpacing: 14,
+          ...MONO,
+          fontSize: 40,
           color: COR.textoSuave,
           opacity: 1 - sobe,
         }}
       >
-        <span style={{ opacity: 1 - fRotulo, position: "absolute", left: 0, right: 0 }}>PEDRA</span>
-        <span style={{ opacity: fRotulo, color: "#8E9AFF" }}>CÓDIGO</span>
+        <span style={{ opacity: 1 - fRotulo, position: "absolute", left: 0, right: 0 }}>// PEDRA</span>
+        <span style={{ opacity: fRotulo, color: COR.texto }}>// CÓDIGO</span>
       </div>
 
       {/* BARATO. RÁPIDO. ACESSÍVEL. */}
@@ -125,11 +117,11 @@ export const Cena03: React.FC<PropsCena> = ({ cena, cue }) => {
               width: "100%",
               textAlign: "center",
               fontFamily,
-              fontWeight: 900,
-              fontSize: 138,
-              letterSpacing: -5,
+              fontWeight: 700,
+              fontSize: 150,
+              letterSpacing: "-0.04em",
               lineHeight: 1,
-              color: ativa ? COR.dourado : COR.texto,
+              color: ativa ? COR.acid : COR.texto,
               opacity: interpolate(f, [0, 3], [0, 1], clamp),
               transform: `scale(${lerp(1.9, 1, s)})`,
             }}

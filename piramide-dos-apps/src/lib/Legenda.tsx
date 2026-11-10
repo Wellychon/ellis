@@ -63,10 +63,10 @@ export const Legenda: React.FC<{ palavras: Palavra[]; ate?: number }> = ({ palav
           flexWrap: "wrap",
           gap: "0 20px",
           fontFamily,
-          fontWeight: 800,
-          fontSize: 66,
+          fontWeight: 700,
+          fontSize: 68,
           lineHeight: 1.15,
-          letterSpacing: -1,
+          letterSpacing: "-0.03em",
           textAlign: "center",
           opacity: entrada,
           transform: `translateY(${(1 - entrada) * 14}px)`,
@@ -80,7 +80,7 @@ export const Legenda: React.FC<{ palavras: Palavra[]; ate?: number }> = ({ palav
             <span
               key={i}
               style={{
-                color: ativa ? COR.dourado : COR.texto,
+                color: ativa ? COR.acid : COR.texto,
                 opacity: ativa || dita ? 1 : 0.55,
                 transform: `scale(${ativa ? 1.06 : 1})`,
                 display: "inline-block",

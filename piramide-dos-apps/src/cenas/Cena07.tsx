@@ -8,7 +8,8 @@ import { Legenda } from "../lib/Legenda";
 import { CAM_MAPA, Mapa } from "../lib/Mapa";
 import { clamp, prog, semente } from "../lib/anim";
 import type { PropsCena } from "../lib/cena";
-import { COR, SEGURO, fontFamily } from "../lib/tema";
+import { Wordmark } from "../lib/Wordmark";
+import { COR, MONO, SEGURO, SERIF, fontFamily } from "../lib/tema";
 
 const useCeu = () =>
   useMemo(() => {
@@ -17,11 +18,12 @@ const useCeu = () =>
     c.height = 256;
     const g = c.getContext("2d")!;
     const grad = g.createLinearGradient(0, 256, 0, 0);
-    grad.addColorStop(0.0, "#F7B15C");
-    grad.addColorStop(0.1, "#E0763F");
-    grad.addColorStop(0.28, "#8C3F3A");
-    grad.addColorStop(0.55, "#33203A");
-    grad.addColorStop(1.0, "#0B0B0F");
+    // horizonte em Overflow Blue subindo para Deep Ink
+    grad.addColorStop(0.0, "#0000FF");
+    grad.addColorStop(0.16, "#0000B4");
+    grad.addColorStop(0.42, "#05053A");
+    grad.addColorStop(0.75, "#0A0A0A");
+    grad.addColorStop(1.0, "#0A0A0A");
     g.fillStyle = grad;
     g.fillRect(0, 0, 4, 256);
     const t = new THREE.CanvasTexture(c);
@@ -51,7 +53,7 @@ const montes = (): Inst[] => {
         pos: [c[0] + dx, y, c[1] + dz],
         rot: [(r() - 0.5) * 0.8, r() * 3, (r() - 0.5) * 0.8],
         escala: 0.36 + r() * 0.2,
-        cor: tom > 0.5 ? "#8E8982" : "#77726C",
+        cor: tom > 0.5 ? "#8A8A8A" : "#6E6E6E",
       });
     }
   }
@@ -83,11 +85,11 @@ export const Cena07: React.FC<PropsCena> = ({ cena, cue }) => {
     <AbsoluteFill style={{ backgroundColor: COR.fundo }}>
       <ThreeCanvas width={width} height={height}>
         <Camera {...cam} />
-        <fog attach="fog" args={["#B5693F", 22, 110]} />
-        <ambientLight intensity={0.75} color="#9A7FA8" />
+        <fog attach="fog" args={["#0000C8", 26, 150]} />
+        <ambientLight intensity={0.7} color="#F4F2EC" />
         {/* luz quente lateral, sol baixo */}
-        <directionalLight position={[14, 5, 3]} intensity={3.6} color="#FFB36B" />
-        <directionalLight position={[-8, 6, 8]} intensity={0.5} color="#7A6FB5" />
+        <directionalLight position={[14, 5, 3]} intensity={3.2} color="#FFFFFF" />
+        <directionalLight position={[-8, 6, 8]} intensity={0.6} color="#F4F2EC" />
         {/* céu e sol */}
         <mesh position={[0, 58, -130]}>
           <planeGeometry args={[520, 120]} />
@@ -95,21 +97,21 @@ export const Cena07: React.FC<PropsCena> = ({ cena, cue }) => {
         </mesh>
         <mesh position={[17, 5.5, -128]}>
           <circleGeometry args={[5.5, 48]} />
-          <meshBasicMaterial color="#FFD489" fog={false} />
+          <meshBasicMaterial color="#F4F2EC" fog={false} />
         </mesh>
         {/* chão */}
         <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, -20]}>
           <planeGeometry args={[520, 240]} />
-          <meshStandardMaterial color="#8A5A3C" roughness={1} />
+          <meshStandardMaterial color="#1C1C1C" roughness={1} />
         </mesh>
         {/* a pirâmide que ninguém conseguiu fazer igual */}
         <mesh position={[0, 2.5, 0]} rotation={[0, Math.PI / 4 + 0.3, 0]}>
           <coneGeometry args={[3.9, 5, 4]} />
           <meshStandardMaterial
-            color={COR.dourado}
+            color={COR.acid}
             roughness={0.42}
             metalness={0.35}
-            emissive={COR.dourado}
+            emissive={COR.acid}
             emissiveIntensity={0.16}
             flatShading
           />
@@ -132,22 +134,42 @@ export const Cena07: React.FC<PropsCena> = ({ cena, cue }) => {
           transform: `translateY(${(1 - entradaCta) * 26}px)`,
         }}
       >
-        <div style={{ fontWeight: 700, fontSize: 34, letterSpacing: 8, color: COR.douradoClaro, marginBottom: 26 }}>
-          ME CONTA AÍ
-        </div>
+        <div style={{ ...MONO, fontSize: 30, color: COR.acid, marginBottom: 30 }}>// me conta aí</div>
         <div
           style={{
-            fontWeight: 900,
-            fontSize: 92,
-            lineHeight: 1.06,
-            letterSpacing: -3,
+            fontWeight: 700,
+            fontSize: 96,
+            lineHeight: 0.98,
+            letterSpacing: "-0.04em",
             color: COR.texto,
-            textShadow: "0 4px 30px rgba(11,11,15,0.55)",
+            textShadow: "0 4px 30px rgba(10,10,10,0.6)",
           }}
         >
           <span>{PERGUNTA.slice(0, Math.min(letras, INICIO_OURO))}</span>
-          <span style={{ color: COR.dourado }}>{PERGUNTA.slice(INICIO_OURO, Math.max(letras, INICIO_OURO))}</span>
+          <span style={{ ...SERIF, color: COR.acid, fontSize: 112 }}>
+            {PERGUNTA.slice(INICIO_OURO, Math.max(letras, INICIO_OURO))}
+          </span>
           <span style={{ opacity: 0 }}>{PERGUNTA.slice(Math.max(letras, 0))}</span>
+        </div>
+      </div>
+      {/* assinatura da marca */}
+      <div
+        style={{
+          position: "absolute",
+          left: SEGURO.lado,
+          right: SEGURO.lado,
+          top: 1405,
+          display: "flex",
+          alignItems: "flex-end",
+          justifyContent: "space-between",
+          color: COR.texto,
+          opacity: interpolate(frame, [fQual + 12, fQual + 26], [0, 1], clamp),
+        }}
+      >
+        <Wordmark largura={300} />
+        <div style={{ ...MONO, fontSize: 23, textAlign: "right", lineHeight: 1.5, opacity: 0.85 }}>
+          we all have
+          <br />a problem to solve.
         </div>
       </div>
       <Legenda palavras={cena.palavras} ate={fQual - 2} />

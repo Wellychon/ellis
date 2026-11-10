@@ -9,7 +9,7 @@ import { Luzes, Piramide } from "../lib/Piramides";
 import { clamp, prog, saltar } from "../lib/anim";
 import type { PropsCena } from "../lib/cena";
 import { ICONES_MAPA, INCLINACAO_ICONE, TOTAL_ICONES } from "../lib/icones";
-import { COR, SEGURO, fontFamily } from "../lib/tema";
+import { COR, MONO, SEGURO, fontFamily } from "../lib/tema";
 import { LOCAIS } from "./Cena01";
 
 const APPS = [
@@ -73,7 +73,7 @@ export const Cena04: React.FC<PropsCena> = ({ cena, cue }) => {
             ))
           : null}
         {PAISES.map((pa, i) => (
-          <Anel key={pa.nome} pos={pa.pos} p={(frame - cuesPaises[i]) / 30} cor="#8E9AFF" raio={1.5} />
+          <Anel key={pa.nome} pos={pa.pos} p={(frame - cuesPaises[i]) / 30} cor={COR.acid} raio={1.5} />
         ))}
         <IconesMapa itens={itens} />
       </ThreeCanvas>
@@ -97,7 +97,7 @@ export const Cena04: React.FC<PropsCena> = ({ cena, cue }) => {
               }}
             >
               <IconeApp tamanho={80} />
-              <span style={{ fontWeight: 800, fontSize: 44, color: COR.texto, letterSpacing: -1 }}>{a.nome}</span>
+              <span style={{ fontWeight: 700, fontSize: 46, color: COR.texto, letterSpacing: "-0.03em" }}>{a.nome}</span>
             </div>
           );
         })}
@@ -117,17 +117,17 @@ export const Cena04: React.FC<PropsCena> = ({ cena, cue }) => {
         >
           <div
             style={{
-              fontWeight: 900,
+              fontWeight: 700,
               fontSize: 96,
               color: COR.texto,
-              letterSpacing: -3,
+              letterSpacing: "-0.04em",
               lineHeight: 1,
               fontVariantNumeric: "tabular-nums",
             }}
           >
             {contador.toLocaleString("pt-BR")}
           </div>
-          <div style={{ fontWeight: 700, fontSize: 28, color: COR.textoSuave, letterSpacing: 6, marginTop: 8 }}>
+          <div style={{ ...MONO, fontSize: 24, color: COR.acid, marginTop: 10 }}>
             VERSÕES IGUAIS
           </div>
         </div>
@@ -146,11 +146,9 @@ export const Cena04: React.FC<PropsCena> = ({ cena, cue }) => {
               top: pt.y - 54,
               width: 240,
               textAlign: "center",
-              fontFamily,
-              fontWeight: 800,
-              fontSize: 30,
-              letterSpacing: 5,
-              color: COR.texto,
+              ...MONO,
+              fontSize: 28,
+              color: COR.acid,
               textShadow: "0 2px 14px #000, 0 0 4px #000",
               opacity: interpolate(f, [0, 6, 40, 55], [0, 1, 1, 0.0], clamp),
             }}

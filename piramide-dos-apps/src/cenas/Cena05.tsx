@@ -3,7 +3,6 @@ import { AbsoluteFill, Easing, interpolate, useCurrentFrame, useVideoConfig } fr
 import { useMemo } from "react";
 import * as THREE from "three";
 import { Camera, misturarCam, projetar, type Cam } from "../lib/Camera";
-import { AZUL } from "../lib/IconeApp";
 import { Instancias, type Inst } from "../lib/Instancias";
 import { Legenda } from "../lib/Legenda";
 import { CAM_MAPA, Mapa } from "../lib/Mapa";
@@ -11,16 +10,16 @@ import { Luzes } from "../lib/Piramides";
 import { clamp, lerp, prog, semente } from "../lib/anim";
 import type { PropsCena } from "../lib/cena";
 import { ICONES_MAPA, INCLINACAO_ICONE } from "../lib/icones";
-import { COR, SEGURO, fontFamily } from "../lib/tema";
+import { COR, MONO, SEGURO, fontFamily } from "../lib/tema";
 
 export const LADO = 0.5;
 export const N_CAMADAS = 10;
 const GIRO = 0.42;
 
 export const corDaCamada = (camada: number, u: number) => {
-  if (camada >= 8) return COR.dourado;
-  if (camada >= 5) return u > 0.5 ? "#A8875A" : "#9C7C52";
-  return u > 0.66 ? "#6E6962" : u > 0.33 ? "#625D57" : "#77716A";
+  if (camada >= 8) return COR.acid;
+  if (camada >= 5) return COR.azul;
+  return u > 0.66 ? "#6A6A6A" : u > 0.33 ? "#5C5C5C" : "#767676";
 };
 
 /** Blocos da pirâmide em camadas: 10×10 na base até 1 na ponta (385 blocos). */
@@ -41,9 +40,9 @@ export const blocosDaPiramide = () => {
 };
 
 const ROTULOS = [
-  { titulo: "commodity", sub: "mesma coisa, preço zero", y: 1.0, cue: "base", cor: "#B9B2A8" },
-  { titulo: "nicho", sub: "um público, um problema", y: 3.25, cue: "meio", cor: "#D2AD78" },
-  { titulo: "incopiável", sub: "não sai de um prompt", y: 4.55, cue: "ponta", cor: COR.dourado },
+  { titulo: "commodity", sub: "mesma coisa, preço zero", y: 1.0, cue: "base", cor: COR.textoSuave },
+  { titulo: "nicho", sub: "um público, um problema", y: 3.25, cue: "meio", cor: COR.azul },
+  { titulo: "incopiável", sub: "não sai de um prompt", y: 4.55, cue: "ponta", cor: COR.acid },
 ];
 
 /** Cena 5 — O formato: os ícones se empilham; a câmera sobe da base lotada à ponta dourada. */
@@ -77,7 +76,7 @@ export const Cena05: React.FC<PropsCena> = ({ cena, cue }) => {
       pos: [lerp(b.ini[0], b.alvo[0], p), lerp(b.ini[1], b.alvo[1], p) + arco, lerp(b.ini[2], b.alvo[2], p)],
       rot: [INCLINACAO_ICONE * (1 - p), 0, 0],
       escala: [e, e, lerp(0.03, LADO * 0.93, p)],
-      cor: "#" + c1.set(AZUL).lerp(c2.set(b.corFinal), interpolate(p, [0.35, 1], [0, 1], clamp)).getHexString(),
+      cor: "#" + c1.set(COR.texto).lerp(c2.set(b.corFinal), interpolate(p, [0.35, 1], [0, 1], clamp)).getHexString(),
     };
   });
 
@@ -103,7 +102,7 @@ export const Cena05: React.FC<PropsCena> = ({ cena, cue }) => {
       <ThreeCanvas width={width} height={height}>
         <Camera {...cam} />
         <Luzes />
-        <pointLight position={[0, 5.6, 2.2]} intensity={14 * luzPonta} color={COR.douradoClaro} distance={5} />
+        <pointLight position={[0, 5.6, 2.2]} intensity={14 * luzPonta} color={COR.acid} distance={5} />
         <Mapa opacidade={1 - prog(frame, 4, 34)} />
         <group rotation={[0, giro, 0]}>
           <Instancias itens={itens} max={400}>
@@ -131,14 +130,13 @@ export const Cena05: React.FC<PropsCena> = ({ cena, cue }) => {
               transform: `translateX(${(1 - a) * -24}px)`,
               padding: "16px 26px 18px",
               borderLeft: `6px solid ${r.cor}`,
-              background: "rgba(11,11,15,0.78)",
-              borderRadius: "0 14px 14px 0",
+              background: "rgba(10,10,10,0.82)",
             }}
           >
-            <div style={{ fontWeight: 900, fontSize: 54, color: r.cor, letterSpacing: -1, lineHeight: 1 }}>
+            <div style={{ fontWeight: 700, fontSize: 58, color: r.cor === COR.acid ? COR.acid : COR.texto, letterSpacing: "-0.03em", lineHeight: 1 }}>
               {r.titulo}
             </div>
-            <div style={{ fontWeight: 500, fontSize: 28, color: COR.texto, opacity: 0.8, marginTop: 8 }}>{r.sub}</div>
+            <div style={{ ...MONO, fontSize: 20, color: COR.texto, opacity: 0.75, marginTop: 12 }}>{r.sub}</div>
           </div>
         );
       })}

@@ -1,27 +1,25 @@
 import { useMemo } from "react";
 import * as THREE from "three";
+import { COR } from "./tema";
 
-export const AZUL = "#5F6FFF";
-export const AZUL_ESCURO = "#3F4BD1";
+const P1 = "M50 50 L50 24 A26 26 0 1 1 26.5 39 Z";
+const P2 = "M46 45 L23.5 33 A26 26 0 0 1 46 19 Z";
 
-/** Ícone genérico de app (desenho próprio, não é logo de ninguém): gráfico de pizza. */
+/**
+ * Ícone genérico de app (desenho próprio, não é logo de ninguém): gráfico de pizza.
+ * Sem cor de propósito: é o app commodity. Cor, no vídeo, só para quem sobe na pirâmide.
+ */
 export const IconeApp: React.FC<{ tamanho: number; style?: React.CSSProperties }> = ({ tamanho, style }) => (
   <svg width={tamanho} height={tamanho} viewBox="0 0 100 100" style={style}>
-    <defs>
-      <linearGradient id="gApp" x1="0" y1="0" x2="1" y2="1">
-        <stop offset="0" stopColor="#7C8AFF" />
-        <stop offset="1" stopColor={AZUL_ESCURO} />
-      </linearGradient>
-    </defs>
-    <rect x="2" y="2" width="96" height="96" rx="23" fill="url(#gApp)" />
+    <rect x="2" y="2" width="96" height="96" rx="23" fill={COR.texto} />
     <Pizza />
   </svg>
 );
 
-export const Pizza: React.FC<{ cor?: string }> = ({ cor = "#FFFFFF" }) => (
+export const Pizza: React.FC<{ cor?: string }> = ({ cor = COR.fundo }) => (
   <>
-    <path d="M50 50 L50 24 A26 26 0 1 1 26.5 39 Z" fill={cor} opacity={0.95} />
-    <path d="M46 45 L23.5 33 A26 26 0 0 1 46 19 Z" fill={cor} opacity={0.55} />
+    <path d={P1} fill={cor} />
+    <path d={P2} fill={cor} opacity={0.45} />
   </>
 );
 
@@ -32,17 +30,14 @@ export const useTexturaIcone = () =>
     c.width = c.height = 128;
     const g = c.getContext("2d")!;
     g.scale(1.28, 1.28);
-    const grad = g.createLinearGradient(0, 0, 100, 100);
-    grad.addColorStop(0, "#7C8AFF");
-    grad.addColorStop(1, AZUL_ESCURO);
-    g.fillStyle = grad;
+    g.fillStyle = COR.texto;
     g.beginPath();
     g.roundRect(2, 2, 96, 96, 23);
     g.fill();
-    g.fillStyle = "rgba(255,255,255,0.95)";
-    g.fill(new Path2D("M50 50 L50 24 A26 26 0 1 1 26.5 39 Z"));
-    g.fillStyle = "rgba(255,255,255,0.55)";
-    g.fill(new Path2D("M46 45 L23.5 33 A26 26 0 0 1 46 19 Z"));
+    g.fillStyle = COR.fundo;
+    g.fill(new Path2D(P1));
+    g.globalAlpha = 0.45;
+    g.fill(new Path2D(P2));
     const t = new THREE.CanvasTexture(c);
     t.colorSpace = THREE.SRGBColorSpace;
     t.anisotropy = 4;
