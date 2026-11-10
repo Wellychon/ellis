@@ -1,0 +1,37 @@
+[
+  {
+    "id": "cena-01",
+    "titulo": "O gancho",
+    "narracao": "Egito. Maias. Peru. Camboja. <break time=\"0.4s\" /> Eles nunca se falaram. <break time=\"0.3s\" /> E todos construíram a mesma coisa."
+  },
+  {
+    "id": "cena-02",
+    "titulo": "Por que pirâmide",
+    "narracao": "Não foi coincidência. A pirâmide é a forma mais fácil de empilhar pedra sem ela cair. <break time=\"0.3s\" /> Base larga, ponta fina. Quando você só tem pedra e gente, todo mundo chega no mesmo desenho."
+  },
+  {
+    "id": "cena-03",
+    "titulo": "A troca",
+    "narracao": "Agora troca pedra por código. <break time=\"0.4s\" /> Com IA, construir um app ficou barato, rápido e acessível pra qualquer um."
+  },
+  {
+    "id": "cena-04",
+    "titulo": "A explosão",
+    "narracao": "E o que acontece? <break time=\"0.3s\" /> O mundo inteiro constrói a mesma pirâmide. Gestor de gastos. App de hábitos. Lista de tarefas. Milhares de versões, no Brasil, na Índia, nos Estados Unidos, ao mesmo tempo."
+  },
+  {
+    "id": "cena-05",
+    "titulo": "O formato",
+    "narracao": "Mas olha o formato. <break time=\"0.4s\" /> A base é enorme: apps que fazem a mesma coisa e brigam por preço zero. No meio, quem achou um nicho. E lá na ponta, pouquíssimos. <break time=\"0.3s\" /> Os que têm algo que não dá pra copiar com um prompt."
+  },
+  {
+    "id": "cena-06",
+    "titulo": "O que fica na ponta",
+    "narracao": "O que fica na ponta? <break time=\"0.4s\" /> Distribuição. Dados próprios. Marca. Comunidade. Um problema real que você entende melhor que ninguém. <break time=\"0.5s\" /> Porque quando todo mundo consegue construir, construir deixa de ser o diferencial."
+  },
+  {
+    "id": "cena-07",
+    "titulo": "Fechamento e CTA",
+    "narracao": "As pirâmides que a gente lembra não são as que foram fáceis de fazer. <break time=\"0.3s\" /> São as que ninguém mais conseguiu fazer igual. <break time=\"0.8s\" /> Me conta aí: qual app você já viu em dez versões iguais?"
+  }
+]

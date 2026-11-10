@@ -1,0 +1,72 @@
+[
+  {
+    "text": "Egito.",
+    "start_s": 0.12,
+    "stop_s": 0.748
+  },
+  {
+    "text": "Maias.",
+    "start_s": 0.948,
+    "stop_s": 1.525
+  },
+  {
+    "text": "Peru.",
+    "start_s": 1.725,
+    "stop_s": 2.263
+  },
+  {
+    "text": "Camboja.",
+    "start_s": 2.463,
+    "stop_s": 3.162
+  },
+  {
+    "text": "Eles",
+    "start_s": 3.762,
+    "stop_s": 4.076
+  },
+  {
+    "text": "nunca",
+    "start_s": 4.076,
+    "stop_s": 4.447
+  },
+  {
+    "text": "se",
+    "start_s": 4.447,
+    "stop_s": 4.647
+  },
+  {
+    "text": "falaram.",
+    "start_s": 4.647,
+    "stop_s": 5.132
+  },
+  {
+    "text": "E",
+    "start_s": 5.632,
+    "stop_s": 5.77
+  },
+  {
+    "text": "todos",
+    "start_s": 5.77,
+    "stop_s": 6.129
+  },
+  {
+    "text": "construíram",
+    "start_s": 6.129,
+    "stop_s": 6.82
+  },
+  {
+    "text": "a",
+    "start_s": 6.82,
+    "stop_s": 6.958
+  },
+  {
+    "text": "mesma",
+    "start_s": 6.958,
+    "stop_s": 7.317
+  },
+  {
+    "text": "coisa.",
+    "start_s": 7.317,
+    "stop_s": 7.676
+  }
+]
